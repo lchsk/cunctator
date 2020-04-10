@@ -11,13 +11,12 @@ typedef struct {
     Animation **animations;
     int current_animation;
 
-    Animation *animation;
     Sprite *sprite;
 
     SDL_Point position;
 } Entity;
 
-Entity *entity_new(Sprite *sprite);
+Entity *entity_new();
 void entity_free(Entity *entity);
 
 void entity_set_position(Entity *entity, int x, int y);
