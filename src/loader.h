@@ -19,7 +19,7 @@ typedef struct Loader {
     int total_to_load;
 } Loader;
 
-Loader* loader_new();
+Loader* loader_new(int textures_count, int fonts_count, int music_count, int sounds_count);
 void loader_free(Loader* loader);
 
 

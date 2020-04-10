@@ -2,12 +2,13 @@
 
 
 
-Loader* loader_new() {
+Loader* loader_new(int textures_count, int fonts_count, int music_count, int sounds_count) {
     Loader *loader = malloc(sizeof(Loader));
-    loader->texture_loader = NULL;
-    loader->font_loader = NULL;
-    loader->music_loader = NULL;
-    loader->sound_loader = NULL;
+
+    loader->texture_loader = textures_count > 0 ? texture_loader_new(textures_count) : NULL;
+    loader->font_loader = fonts_count > 0 ? font_loader_new(fonts_count) : NULL;
+    loader->music_loader = music_count > 0 ? music_loader_new(music_count) : NULL;
+    loader->sound_loader = sounds_count > 0 ? sound_loader_new(sounds_count) : NULL;
 
     loader->total_loaded = 0;
     loader->total_to_load = 0;
