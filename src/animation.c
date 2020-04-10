@@ -15,10 +15,14 @@ Animation* animation_new(int frames_count) {
 
     animation->sprites = malloc(frames_count * sizeof(Sprite*));
 
+    for (int i = 0; i < frames_count; i++) {
+        animation->sprites[i] = sprite_new2();
+    }
+
     animation->frames_count = frames_count;
     animation->current_frame = 0;
-    animation->is_loop = 0;
-    animation->is_playing = 0;
+    animation->is_loop = 1;
+    animation->is_playing = 1;
     animation->delay_rate = 1.0;
     animation->_since_last_update = 0;
 
@@ -31,7 +35,12 @@ void animation_free(Animation *animation) {
     }
 
     if (animation->sprites) {
-        // TODO: Free each Sprite*
+        for (int i = 0; i < animation->frames_count; i++) {
+            if (animation->sprites[i]) {
+                sprite_free(animation->sprites[i]);
+                animation->sprites[i] = NULL;
+            }
+        }
 
         free(animation->sprites);
         animation->sprites = NULL;
@@ -73,4 +82,16 @@ void animation_render(Animation *animation, SDL_Renderer* renderer, double delta
     animation_update(animation, delta);
 
     sprite_render(animation->sprites[animation->current_frame], renderer);
+}
+
+void animation_set_textures(Animation *animation, TextureLoader *loader, int frames_count, ...) {
+    va_list p;
+    va_start(p, frames_count);
+
+    for (int i = 0; i < frames_count; i++) {
+        int texture = va_arg(p, int);
+        animation->sprites[i]->texture = loader->textures[texture];
+    }
+
+    va_end(p);
 }

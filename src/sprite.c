@@ -1,10 +1,9 @@
 #include "sprite.h"
 
-
-Sprite* sprite_new(Texture* texture) {
+static Sprite *init() {
     Sprite *sprite = malloc(sizeof(Sprite));
 
-    sprite->texture = texture;
+    sprite->texture = NULL;
     sprite->zoom = 1.0;
     sprite->position.x = 0;
     sprite->position.y = 0;
@@ -12,15 +11,23 @@ Sprite* sprite_new(Texture* texture) {
     return sprite;
 }
 
+Sprite* sprite_new(Texture* texture) {
+    Sprite *sprite = init();
+    sprite->texture = texture;
+
+    return sprite;
+}
+
+Sprite* sprite_new2() {
+    return init();
+}
+
 void sprite_free(Sprite *sprite) {
     if (!sprite) {
         return;
     }
 
-    if (sprite->texture) {
-        texture_free(sprite->texture);
-        sprite->texture = NULL;
-    }
+    // Textures freed by the loader
 
     free(sprite);
 }

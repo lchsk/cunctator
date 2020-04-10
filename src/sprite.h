@@ -12,6 +12,7 @@ typedef struct {
 } Sprite;
 
 Sprite* sprite_new(Texture* texture);
+Sprite* sprite_new2();
 void sprite_free(Sprite *sprite);
 
 SDL_Rect sprite_dest_rect(Sprite *sprite);
