@@ -99,6 +99,8 @@ void engine_clear(Engine *engine) {
 }
 
 void engine_present(Engine *engine) {
+    console_render(engine->console, engine->renderer);
+
     SDL_RenderPresent(engine->renderer);
 
     engine_calculate_delta(engine);
