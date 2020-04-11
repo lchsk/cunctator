@@ -3,7 +3,7 @@
 
 
 Loader* loader_new(int textures_count, int fonts_count, int music_count, int sounds_count) {
-    Loader *loader = malloc(sizeof(Loader));
+    Loader *loader = calloc(1, sizeof(Loader));
 
     loader->texture_loader = textures_count > 0 ? texture_loader_new(textures_count) : NULL;
     loader->font_loader = fonts_count > 0 ? font_loader_new(fonts_count) : NULL;

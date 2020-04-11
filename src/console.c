@@ -3,7 +3,7 @@
 static int is_key_allowed(int key);
 
 Console *console_new(int width, int height) {
-    Console *console = malloc(sizeof(Console));
+    Console *console = calloc(1, sizeof(Console));
 
     console->is_visible = 0;
     console->rect.x = 0;

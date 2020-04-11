@@ -2,10 +2,10 @@
 
 
 FontLoader* font_loader_new(int fonts_size) {
-    FontLoader *loader = malloc(sizeof(FontLoader));
+    FontLoader *loader = calloc(1, sizeof(FontLoader));
 
     loader->fonts_size = fonts_size;
-    loader->fonts = malloc(fonts_size * sizeof(TTF_Font*));
+    loader->fonts = calloc(fonts_size, sizeof(TTF_Font*));
     loader->loaded = 0;
 
     return loader;

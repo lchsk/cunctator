@@ -3,7 +3,7 @@
 
 
 Text* text_new(TTF_Font* font) {
-    Text* t = malloc(sizeof(Text));
+    Text* t = calloc(1, sizeof(Text));
 
     t->sprite = NULL;
     t->font = font;
@@ -49,7 +49,7 @@ int text_set(Text* text, SDL_Renderer* renderer, char *string) {
     SDL_QueryTexture(tex, NULL, NULL, &w, &h);
 
     if (text->sprite == NULL) {
-        Texture *texture = malloc(sizeof(Texture));
+        Texture *texture = calloc(1, sizeof(Texture));
         texture->_tex = tex;
         texture->width = w;
         texture->height = h;

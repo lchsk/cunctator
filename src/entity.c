@@ -53,7 +53,7 @@ void entity_set_position(Entity *entity, int x, int y) {
 void entity_set_animations(Entity* entity, int animations_total) {
     entity->animations_total = animations_total;
 
-    entity->animations = malloc(animations_total * sizeof(Animation*));
+    entity->animations = calloc(animations_total, sizeof(Animation*));
 
     entity->current_animation = 0;
 }

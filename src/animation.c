@@ -11,9 +11,9 @@ void animation_set_position(Animation *animation, int x, int y) {
 
 
 Animation* animation_new(int frames_count) {
-    Animation* animation = malloc(sizeof(Animation));
+    Animation* animation = calloc(1, sizeof(Animation));
 
-    animation->sprites = malloc(frames_count * sizeof(Sprite*));
+    animation->sprites = calloc(frames_count, sizeof(Sprite*));
 
     for (int i = 0; i < frames_count; i++) {
         animation->sprites[i] = sprite_new2();

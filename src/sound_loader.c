@@ -2,10 +2,10 @@
 
 
 SoundLoader* sound_loader_new(int size) {
-    SoundLoader *loader = malloc(sizeof(SoundLoader));
+    SoundLoader *loader = calloc(1, sizeof(SoundLoader));
 
     loader->sounds_size = size;
-    loader->sounds = malloc(size * sizeof(Mix_Chunk*));
+    loader->sounds = calloc(size, sizeof(Mix_Chunk*));
     loader->loaded = 0;
 
     return loader;

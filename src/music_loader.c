@@ -2,10 +2,10 @@
 
 
 MusicLoader* music_loader_new(int size) {
-    MusicLoader *loader = malloc(sizeof(MusicLoader));
+    MusicLoader *loader = calloc(1, sizeof(MusicLoader));
 
     loader->music_size = size;
-    loader->music = malloc(size * sizeof(Mix_Music*));
+    loader->music = calloc(size, sizeof(Mix_Music*));
     loader->loaded = 0;
 
     return loader;

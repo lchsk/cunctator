@@ -4,7 +4,7 @@ static void engine_calculate_delta(Engine *engine);
 static void engine_load_resources(Engine *engine);
 
 Engine *engine_new(int width, int height, char * const title) {
-    Engine *engine = malloc(sizeof(Engine));
+    Engine *engine = calloc(1, sizeof(Engine));
     engine->width = width;
     engine->height = height;
     engine->title = title;

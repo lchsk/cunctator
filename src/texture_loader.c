@@ -2,10 +2,10 @@
 
 
 TextureLoader* texture_loader_new(int textures_size) {
-    TextureLoader *loader = malloc(sizeof(TextureLoader));
+    TextureLoader *loader = calloc(1, sizeof(TextureLoader));
 
     loader->textures_size = textures_size;
-    loader->textures = malloc(textures_size * sizeof(Texture*));
+    loader->textures = calloc(textures_size, sizeof(Texture*));
     loader->loaded = 0;
 
     return loader;
@@ -45,7 +45,7 @@ int texture_loader_load(TextureLoader *loader, SDL_Renderer *renderer, LoaderSta
             return -1;
         }
 
-        Texture *texture = malloc(sizeof(Texture));
+        Texture *texture = calloc(1, sizeof(Texture));
 
         loader->textures[i] = texture;
         loader->textures[i]->_tex = sdl_texture;

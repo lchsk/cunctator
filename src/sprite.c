@@ -1,7 +1,7 @@
 #include "sprite.h"
 
 static Sprite *init() {
-    Sprite *sprite = malloc(sizeof(Sprite));
+    Sprite *sprite = calloc(1, sizeof(Sprite));
 
     sprite->texture = NULL;
     sprite->zoom = 1.0;
