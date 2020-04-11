@@ -7,6 +7,7 @@ typedef struct MusicLoader {
     int music_size;
     int loaded;
     Mix_Music **music;
+    char **paths;
 } MusicLoader;
 
 MusicLoader* music_loader_new(int size);

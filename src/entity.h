@@ -5,7 +5,7 @@
 #include "animation.h"
 
 typedef struct {
-    int entity_type;
+    /* int entity_type; */
 
     int animations_total;
     Animation **animations;

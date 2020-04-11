@@ -7,6 +7,7 @@ typedef struct SoundLoader {
     int sounds_size;
     int loaded;
     Mix_Chunk **sounds;
+    char **paths;
 } SoundLoader;
 
 SoundLoader* sound_loader_new(int size);

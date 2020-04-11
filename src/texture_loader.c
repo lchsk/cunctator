@@ -28,16 +28,18 @@ void texture_loader_free(TextureLoader *loader) {
      free(loader);
 }
 
-int texture_loader_load(TextureLoader *loader, SDL_Renderer *renderer, LoaderState loader_state, char **images) {
+int texture_loader_load(TextureLoader *loader, SDL_Renderer *renderer, LoaderState loader_state) {
     if (loader_state != LOADER_TEXTURES) {
         return 0;
     }
 
     int i = loader->loaded;
 
-    printf("Loading texture %s\n", images[i]);
+    char *path = loader->paths[i];
 
-        SDL_Texture *sdl_texture = texture_new(renderer, images[i]);
+    printf("Loading texture %s\n", path);
+
+        SDL_Texture *sdl_texture = texture_new(renderer, path);
 
         if (!sdl_texture) {
             return -1;

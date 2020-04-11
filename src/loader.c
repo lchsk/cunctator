@@ -105,7 +105,7 @@ void loader_update(Loader *loader) {
     }
 }
 
-int sound_loader_load(Loader *loader, char **sounds) {
+int sound_loader_load(Loader *loader) {
     if (loader->state != LOADER_SOUNDS) {
         return 0;
     }
@@ -114,9 +114,11 @@ int sound_loader_load(Loader *loader, char **sounds) {
 
     int i = sound_loader->loaded;
 
-    printf("Loading sound %s\n", sounds[i]);
+    char *path = sound_loader->paths[i];
 
-    sound_loader->sounds[i] = Mix_LoadWAV(sounds[i]);
+    printf("Loading sound %s\n", path);
+
+    sound_loader->sounds[i] = Mix_LoadWAV(path);
 
     if (sound_loader->sounds[i] == NULL) {
         return -1;
@@ -127,7 +129,7 @@ int sound_loader_load(Loader *loader, char **sounds) {
     return 0;
 }
 
-int music_loader_load(Loader *loader, char **music) {
+int music_loader_load(Loader *loader) {
     if (loader->state != LOADER_MUSIC) {
         return 0;
     }
@@ -136,9 +138,11 @@ int music_loader_load(Loader *loader, char **music) {
 
     int i = music_loader->loaded;
 
-    printf("Loading music %s\n", music[i]);
+    char *path = music_loader->paths[i];
 
-    music_loader->music[i] = Mix_LoadMUS(music[i]);
+    printf("Loading music %s\n", path);
+
+    music_loader->music[i] = Mix_LoadMUS(path);
 
     if (music_loader->music[i] == NULL) {
         return -1;
@@ -184,11 +188,15 @@ ENGINE_STATE check_if_loading_finished(Loader *loader, ENGINE_STATE engine_state
         sound_ok = sound_loader->loaded == sound_loader->sounds_size;
     }
 
+    printf("%d %d %d %d \n", fonts_ok, textures_ok, music_ok, sound_ok);
+
     if (fonts_ok && textures_ok && music_ok && sound_ok) {
         if (engine_state == ENGINE_PRELOADING) {
-            return ENGINE_LOADING;
+            /* return ENGINE_LOADING; */
+            return ENGINE_LOADING_SCREEN_SETUP;
         } else if (engine_state == ENGINE_LOADING) {
-            return ENGINE_RUNNING;
+            /* return ENGINE_RUNNING; */
+            return ENGINE_GAME_SETUP;
         }
     }
 

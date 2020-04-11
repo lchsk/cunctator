@@ -24,8 +24,8 @@ void loader_free(Loader* loader);
 
 
 void loader_update(Loader *loader);
-int sound_loader_load(Loader *loader, char **sounds);
-int music_loader_load(Loader *loader, char **music);
+int sound_loader_load(Loader *loader);
+int music_loader_load(Loader *loader);
 
 ENGINE_STATE check_if_loading_finished(Loader *loader, ENGINE_STATE engine_state);
 

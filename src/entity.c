@@ -1,7 +1,15 @@
 #include "entity.h"
 
 Entity *entity_new() {
-    Entity *entity = malloc(sizeof(Entity));
+    Entity *entity = calloc(1, sizeof(Entity));
+
+    entity->animations = NULL;
+    entity->sprite = NULL;
+    entity->current_animation = 0;
+    entity->animations_total = 0;
+
+    entity->position.x = 0;
+    entity->position.y = 0;
 
     return entity;
 }

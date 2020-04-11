@@ -26,18 +26,19 @@ void font_loader_free(FontLoader *font_loader) {
     free(font_loader);
 }
 
-int font_loader_load(FontLoader *font_loader, LoaderState loader_state, char **fonts,
-                            int *font_sizes) {
+int font_loader_load(FontLoader *font_loader, LoaderState loader_state) {
     if (loader_state != LOADER_FONTS) {
         return 0;
     }
 
     int i = font_loader->loaded;
 
-    int font_size = font_sizes[i];
-        printf("Loading font %s\n", fonts[i]);
+    int font_size = font_loader->sizes[i];
+    char *path = font_loader->paths[i];
 
-        TTF_Font *font = TTF_OpenFont(fonts[i], font_size);
+        printf("Loading font %s\n", path);
+
+        TTF_Font *font = TTF_OpenFont(path, font_size);
 
         if (font == NULL) {
             return -1;

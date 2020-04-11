@@ -1,6 +1,7 @@
 #include "engine.h"
 
 static void engine_calculate_delta(Engine *engine);
+static void engine_load_resources(Engine *engine);
 
 Engine *engine_new(int width, int height, char * const title) {
     Engine *engine = malloc(sizeof(Engine));
@@ -101,6 +102,39 @@ void engine_present(Engine *engine) {
     SDL_RenderPresent(engine->renderer);
 
     engine_calculate_delta(engine);
+}
+
+
+void engine_render(Engine *engine) {
+    engine_load_resources(engine);
+}
+
+static void engine_load_resources(Engine *engine) {
+    if (engine->state == ENGINE_INITIAL) {
+        engine->state = ENGINE_PRELOADING;
+    }
+
+    if (engine->state == ENGINE_PRELOADING) {
+        texture_loader_load(engine->preloader->texture_loader, engine->renderer,
+                            engine->loader->state
+            );
+
+        loader_update(engine->preloader);
+        engine->state = check_if_loading_finished(engine->preloader, engine->state);
+    }
+
+    if (engine->state == ENGINE_LOADING) {
+        font_loader_load(engine->loader->font_loader, engine->loader->state);
+        texture_loader_load(engine->loader->texture_loader, engine->renderer, engine->loader->state);
+        music_loader_load(engine->loader);
+        sound_loader_load(engine->loader);
+
+        loader_update(engine->loader);
+
+        printf("LOADING Progress %d / %d\n", engine->loader->total_loaded, engine->loader->total_to_load);
+
+        engine->state = check_if_loading_finished(engine->loader, engine->state);
+    }
 }
 
 static void engine_calculate_delta(Engine *engine) {

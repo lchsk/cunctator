@@ -41,11 +41,11 @@ SDL_Rect sprite_dest_rect(Sprite *sprite) {
 
 
 void sprite_render(Sprite *sprite, SDL_Renderer *renderer) {
-    if (!sprite) {
+    if (!sprite || !sprite->texture || !sprite->texture->_tex) {
         /* TODO: Otherwise seems to crash when using input in debug console */
         return;
     }
 
-        SDL_Rect dest = sprite_dest_rect(sprite);
-        SDL_RenderCopy(renderer, sprite->texture->_tex, NULL, &dest);
+    SDL_Rect dest = sprite_dest_rect(sprite);
+    SDL_RenderCopy(renderer, sprite->texture->_tex, NULL, &dest);
 }

@@ -51,6 +51,8 @@ typedef struct {
 Engine *engine_new(int width, int height, char * const title);
 void engine_free(Engine *engine);
 
+void engine_render(Engine *engine);
+
 void engine_clear(Engine *engine);
 void engine_present(Engine *engine);
 
