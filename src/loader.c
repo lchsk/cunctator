@@ -115,7 +115,9 @@ int sound_loader_load(Loader *loader) {
 
     char *path = sound_loader->paths[i];
 
-    printf("Loading sound %s\n", path);
+    #ifdef DEBUG_LOG_LOADING
+    LOGFMT("Loading sound %s\n", path);
+    #endif
 
     sound_loader->sounds[i] = Mix_LoadWAV(path);
 
@@ -139,7 +141,9 @@ int music_loader_load(Loader *loader) {
 
     char *path = music_loader->paths[i];
 
-    printf("Loading music %s\n", path);
+    #ifdef DEBUG_LOG_LOADING
+    LOGFMT("Loading music %s\n", path);
+    #endif
 
     music_loader->music[i] = Mix_LoadMUS(path);
 
@@ -191,7 +195,9 @@ ENGINE_STATE check_if_loading_finished(Loader *loader, ENGINE_STATE engine_state
         sound_ok = sound_loader->loaded == sound_loader->sounds_size;
     }
 
-    printf("%d %d %d %d \n", fonts_ok, textures_ok, music_ok, sound_ok);
+    #ifdef DEBUG_LOG_LOADING
+    LOGFMT("textures: %d\t fonts: %d\tmusic: %d\tsounds:%d\n", textures_ok, fonts_ok, music_ok, sound_ok);
+    #endif
 
     return get_new_engine_state(engine_state, textures_ok, fonts_ok, music_ok, sound_ok);
 }

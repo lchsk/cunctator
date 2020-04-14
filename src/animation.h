@@ -24,4 +24,4 @@ void animation_set_zoom(Animation *animation, double zoom);
 void animation_update(Animation *animation, double delta);
 void animation_render(Animation *animation, SDL_Renderer* renderer, double delta);
 
-    #endif /* ENGINE_ANIMATION_H */
+#endif /* ENGINE_ANIMATION_H */

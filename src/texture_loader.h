@@ -1,6 +1,7 @@
 #ifndef ENGINE_TEXTURE_LOADER_H
     #define ENGINE_TEXTURE_LOADER_H
 
+#include "config.h"
 #include "enums.h"
 #include "texture.h"
 

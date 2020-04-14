@@ -37,7 +37,9 @@ int texture_loader_load(TextureLoader *loader, SDL_Renderer *renderer, LoaderSta
 
     char *path = loader->paths[i];
 
-    printf("Loading texture %s\n", path);
+    #ifdef DEBUG_LOG_LOADING
+    LOGFMT("Loading texture %s\n", path);
+    #endif
 
         SDL_Texture *sdl_texture = texture_new(renderer, path);
 

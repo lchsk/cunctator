@@ -20,35 +20,45 @@ Engine *engine_new(int width, int height, char * const title) {
 
     if (SDL_Init(init_flags) != 0)
     {
-        printf("error initializing SDL: %s\n", SDL_GetError());
+        LOGFMT("Error initializing SDL: %s\n", SDL_GetError());
         return NULL;
     }
+
+    LOGFMT("%s\n", "SDL_Init ok");
 
     TTF_Init();
 
-    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
+    LOGFMT("%s\n", "TTF_Init ok");
+
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
     {
-        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        LOGFMT("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
         return NULL;
     }
+
+    LOGFMT("%s\n", "Audio init ok");
 
     engine->window = SDL_CreateWindow(title, 0, 0,
                                       width, height,
                                       0);
 
     if (engine->window == NULL) {
-        printf("Window creation failed\n");
+        LOGFMT("%s\n", "Window creation failed");
         return NULL;
     }
+
+    LOGFMT("%s\n", "Window created");
 
     Uint32 render_flags = SDL_RENDERER_ACCELERATED;
 
     engine->renderer = SDL_CreateRenderer(engine->window, -1, render_flags);
 
     if (engine->renderer == NULL) {
-        printf("Renderer creation failed\n");
+        LOGFMT("%s\n", "Renderer creation failed");
         return NULL;
     }
+
+    LOGFMT("%s\n", "Renderer created");
 
     engine->console = console_new(width, height);
     console_init(engine->console);
@@ -136,7 +146,9 @@ static void engine_load_resources(Engine *engine) {
 
         loader_update(engine->loader);
 
-        printf("LOADING Progress %d / %d\n", engine->loader->total_loaded, engine->loader->total_to_load);
+        #ifdef DEBUG_LOG_LOADING
+        LOGFMT("Loaded %d / %d assets\n", engine->loader->total_loaded, engine->loader->total_to_load);
+        #endif
 
         engine->state = check_if_loading_finished(engine->loader, engine->state);
     }

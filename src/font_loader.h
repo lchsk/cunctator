@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL_ttf.h>
 
+#include "config.h"
 #include "enums.h"
 
 typedef struct FontLoader {

@@ -1,6 +1,7 @@
 #ifndef ENGINE_LOADER_H
     #define ENGINE_LOADER_H
 
+#include "config.h"
 #include "texture_loader.h"
 #include "font_loader.h"
 #include "music_loader.h"

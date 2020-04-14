@@ -36,7 +36,9 @@ int font_loader_load(FontLoader *font_loader, LoaderState loader_state) {
     int font_size = font_loader->sizes[i];
     char *path = font_loader->paths[i];
 
-        printf("Loading font %s\n", path);
+#ifdef DEBUG_LOG_LOADING
+    LOGFMT("Loading font %s\n", path);
+#endif
 
         TTF_Font *font = TTF_OpenFont(path, font_size);
 
