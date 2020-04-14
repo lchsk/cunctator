@@ -9,6 +9,12 @@ void animation_set_position(Animation *animation, int x, int y) {
     }
 }
 
+void animation_set_zoom(Animation *animation, double zoom) {
+    for (int i = 0; i < animation->frames_count; i++) {
+        Sprite * sprite = animation->sprites[i];
+        sprite->zoom = zoom;
+    }
+}
 
 Animation* animation_new(int frames_count) {
     Animation* animation = calloc(1, sizeof(Animation));
