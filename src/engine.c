@@ -117,11 +117,14 @@ static void engine_load_resources(Engine *engine) {
     }
 
     if (engine->state == ENGINE_PRELOADING) {
-        texture_loader_load(engine->preloader->texture_loader, engine->renderer,
+        if (engine->preloader) {
+            texture_loader_load(engine->preloader->texture_loader, engine->renderer,
                             engine->loader->state
             );
 
-        loader_update(engine->preloader);
+            loader_update(engine->preloader);
+        }
+
         engine->state = check_if_loading_finished(engine->preloader, engine->state);
     }
 

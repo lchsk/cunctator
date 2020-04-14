@@ -1,6 +1,13 @@
 #include "loader.h"
 
 
+static ENGINE_STATE get_new_engine_state(ENGINE_STATE engine_state,
+                          int textures_ok,
+                          int fonts_ok,
+                          int music_ok,
+                          int sound_ok
+    );
+
 
 Loader* loader_new(int textures_count, int fonts_count, int music_count, int sounds_count) {
     Loader *loader = calloc(1, sizeof(Loader));
@@ -56,30 +63,22 @@ void loader_update(Loader *loader) {
     int music_loaded = 0, music_size = 0;
     int sound_loaded = 0, sound_size = 0;
 
-    if (texture_loader == NULL) {
-        loader->state = LOADER_FONTS;
-    } else {
+    if (texture_loader != NULL) {
         texture_loaded = texture_loader->loaded;
         texture_size = texture_loader->textures_size;
     }
 
-    if (font_loader == NULL) {
-        loader->state = LOADER_MUSIC;
-    } else {
+    if (font_loader != NULL) {
         font_loaded = font_loader->loaded;
         font_size = font_loader->fonts_size;
     }
 
-    if (music_loader == NULL) {
-        loader->state = LOADER_SOUNDS;
-    } else {
+    if (music_loader != NULL) {
         music_loaded = music_loader->loaded;
         music_size = music_loader->music_size;
     }
 
-    if (sound_loader == NULL) {
-        loader->state = LOADER_FINISHED;
-    } else {
+    if (sound_loader != NULL) {
         sound_loaded = sound_loader->loaded;
         sound_size = sound_loader->sounds_size;
     }
@@ -154,6 +153,10 @@ int music_loader_load(Loader *loader) {
 }
 
 ENGINE_STATE check_if_loading_finished(Loader *loader, ENGINE_STATE engine_state) {
+    if (loader == NULL) {
+        return get_new_engine_state(engine_state, 1, 1, 1, 1);
+    }
+
     FontLoader *font_loader = loader->font_loader;
     TextureLoader *texture_loader = loader->texture_loader;
     MusicLoader *music_loader = loader->music_loader;
@@ -190,12 +193,19 @@ ENGINE_STATE check_if_loading_finished(Loader *loader, ENGINE_STATE engine_state
 
     printf("%d %d %d %d \n", fonts_ok, textures_ok, music_ok, sound_ok);
 
+    return get_new_engine_state(engine_state, textures_ok, fonts_ok, music_ok, sound_ok);
+}
+
+ENGINE_STATE get_new_engine_state(ENGINE_STATE engine_state,
+                          int textures_ok,
+                          int fonts_ok,
+                          int music_ok,
+                          int sound_ok
+    ) {
     if (fonts_ok && textures_ok && music_ok && sound_ok) {
         if (engine_state == ENGINE_PRELOADING) {
-            /* return ENGINE_LOADING; */
             return ENGINE_LOADING_SCREEN_SETUP;
         } else if (engine_state == ENGINE_LOADING) {
-            /* return ENGINE_RUNNING; */
             return ENGINE_GAME_SETUP;
         }
     }
