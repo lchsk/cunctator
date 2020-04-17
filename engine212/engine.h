@@ -10,6 +10,8 @@
 #include "config.h"
 #include "enums.h"
 
+#include "list.h"
+
 #include "texture.h"
 #include "sprite.h"
 #include "animation.h"
@@ -36,8 +38,6 @@ typedef struct {
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Event event;
-
-    Entity **entities;
 
     Loader *preloader;
     Loader *loader;
