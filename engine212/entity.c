@@ -35,7 +35,11 @@ void entity_free(Entity *entity) {
 }
 
 
-void entity_set_position(Entity *entity, int x, int y) {
+/* void entity_set_position(Entity *entity, int x, int y) { */
+void entity_set_position(Entity *entity, double x, double y) {
+    entity->position.x = x;
+    entity->position.y = y;
+
     if (entity->sprite) {
         Sprite* sprite = entity->sprite;
         sprite->position.x = x;

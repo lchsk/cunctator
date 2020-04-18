@@ -58,7 +58,11 @@ Engine *engine_new(int width, int height, char * const title) {
         return NULL;
     }
 
-    LOGFMT("%s\n", "Renderer created");
+    LOGFMT("%s\n", "Renderer initialized");
+
+    engine->input = input_new();
+
+    LOGFMT("%s\n", "Input initialized");
 
     engine->console = console_new(width, height);
     console_init(engine->console);
@@ -71,6 +75,11 @@ Engine *engine_new(int width, int height, char * const title) {
 void engine_free(Engine *engine) {
     if (!engine) {
         return;
+    }
+
+    if (engine->input) {
+        input_free(engine->input);
+        engine->input = NULL;
     }
 
     if (engine->console) {

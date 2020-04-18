@@ -4,8 +4,11 @@
 #include "sprite.h"
 #include "animation.h"
 
+
 typedef struct {
     /* int entity_type; */
+
+    void* properties;
 
     int animations_total;
     Animation **animations;
@@ -13,13 +16,15 @@ typedef struct {
 
     Sprite *sprite;
 
-    SDL_Point position;
+    /* SDL_Point position; */
+    Pointd position;
 } Entity;
 
 Entity *entity_new();
 void entity_free(Entity *entity);
 
-void entity_set_position(Entity *entity, int x, int y);
+/* void entity_set_position(Entity *entity, int x, int y); */
+void entity_set_position(Entity *entity, double x, double y);
 void entity_set_animations(Entity* entity, int animations_total);
 void entity_set_current_animation(Entity* entity, int animation);
 void entity_render(Entity* entity, SDL_Renderer *renderer, double delta);

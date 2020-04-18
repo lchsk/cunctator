@@ -7,6 +7,7 @@ static Sprite *init() {
     sprite->zoom = 1.0;
     sprite->position.x = 0;
     sprite->position.y = 0;
+    sprite->rotation = 0;
 
     return sprite;
 }
@@ -47,5 +48,16 @@ void sprite_render(Sprite *sprite, SDL_Renderer *renderer) {
     }
 
     SDL_Rect dest = sprite_dest_rect(sprite);
-    SDL_RenderCopy(renderer, sprite->texture->_tex, NULL, &dest);
+
+    if (fabs(sprite->rotation) < 0.0001) {
+        SDL_RenderCopy(renderer, sprite->texture->_tex, NULL, &dest);
+    } else {
+    SDL_RenderCopyEx(renderer,
+                     sprite->texture->_tex,
+                     NULL,
+                     &dest,
+                     sprite->rotation,
+                     NULL,
+                     SDL_FLIP_NONE);
+    }
 }

@@ -3,12 +3,15 @@
 
 #include <SDL2/SDL.h>
 
+#include "config.h"
 #include "texture.h"
 
 typedef struct {
     Texture *texture;
     double zoom;
-    SDL_Point position;
+    double rotation;
+    /* SDL_Point position; */
+    Pointd position;
 } Sprite;
 
 Sprite* sprite_new(Texture* texture);

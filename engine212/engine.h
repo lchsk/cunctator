@@ -23,7 +23,7 @@
 #include "sound_loader.h"
 #include "font_loader.h"
 #include "loader.h"
-
+#include "input.h"
 
 
 typedef struct {
@@ -38,6 +38,8 @@ typedef struct {
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Event event;
+
+    Input *input;
 
     Loader *preloader;
     Loader *loader;

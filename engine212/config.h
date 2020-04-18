@@ -22,4 +22,10 @@
         do { if (DEBUG_TEST) fprintf(stderr, "%s:%d\t%s\t" fmt, __FILE__, \
                                 __LINE__, __func__, __VA_ARGS__); } while (0)
 
+typedef struct Pointd {
+    double x;
+    double y;
+} Pointd;
+
+
 #endif /* ENGINE_CONFIG_H */
