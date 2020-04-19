@@ -137,9 +137,10 @@ static void engine_load_resources(Engine *engine) {
 
     if (engine->state == ENGINE_PRELOADING) {
         if (engine->preloader) {
-            texture_loader_load(engine->preloader->texture_loader, engine->renderer,
-                            engine->loader->state
-            );
+        font_loader_load(engine->preloader->font_loader, engine->preloader->state);
+        texture_loader_load(engine->preloader->texture_loader, engine->renderer, engine->preloader->state);
+        music_loader_load(engine->preloader);
+        sound_loader_load(engine->preloader);
 
             loader_update(engine->preloader);
         }
