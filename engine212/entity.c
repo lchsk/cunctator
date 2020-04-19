@@ -11,6 +11,9 @@ Entity *entity_new() {
     entity->position.x = 0;
     entity->position.y = 0;
 
+    // Collisions
+    entity->rects_sz = 0;
+
     return entity;
 }
 
@@ -39,6 +42,9 @@ void entity_free(Entity *entity) {
 void entity_set_position(Entity *entity, double x, double y) {
     entity->position.x = x;
     entity->position.y = y;
+
+    entity->rects[0].x = x;
+    entity->rects[0].y = y;
 
     if (entity->sprite) {
         Sprite* sprite = entity->sprite;
@@ -78,4 +84,21 @@ void entity_render(Entity* entity, SDL_Renderer *renderer, double delta) {
 
         animation_render(current, renderer, delta);
     }
+
+#ifdef DEBUG_COLLISIONS
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+
+    SDL_RenderDrawRects(renderer, entity->rects, entity->rects_sz);
+#endif
+
+}
+
+int entity_has_collision(Entity* entity, SDL_Rect* rect) {
+    for (int i = 0; i < entity->rects_sz; i++) {
+        if (SDL_HasIntersection(&entity->rects[i], rect)) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
