@@ -59,5 +59,6 @@ void engine_render(Engine *engine);
 void engine_clear(Engine *engine);
 void engine_present(Engine *engine);
 
+int get_rand_int(int min, int upper_bound);
 
 #endif

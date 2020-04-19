@@ -171,3 +171,7 @@ static void engine_calculate_delta(Engine *engine) {
     engine->_last_render_time = total_elapsed;
   }
 }
+
+int get_rand_int(int min, int upper_bound) {
+    return (rand() % (upper_bound - min)) + min;
+}
