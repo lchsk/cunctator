@@ -6,6 +6,7 @@
 
 #define DEBUG
 #define DEBUG_LOG_LOADING
+/* #define DEBUG_COLLISIONS */
 
 /* Macros ********************************************************************/
 
