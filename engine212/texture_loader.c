@@ -29,6 +29,10 @@ void texture_loader_free(TextureLoader *loader) {
 }
 
 int texture_loader_load(TextureLoader *loader, SDL_Renderer *renderer, LoaderState loader_state) {
+    if (!loader) {
+        return 0;
+    }
+
     if (loader_state != LOADER_TEXTURES) {
         return 0;
     }
