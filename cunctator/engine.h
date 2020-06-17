@@ -24,6 +24,7 @@
 #include "font_loader.h"
 #include "loader.h"
 #include "input.h"
+#include "net.h"
 
 
 typedef struct {
